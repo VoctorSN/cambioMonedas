@@ -4,9 +4,7 @@ import edu.badpals.cambiomonedas.model.service.CambioMonedaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +23,7 @@ public class CambioMonedasController {
         return "cambioMonedas";
     }
 
-    @PostMapping("/resultado")
+    @RequestMapping(value = "/resultado", method = RequestMethod.GET)
     public String verCambio(@RequestParam Double importe, @RequestParam String origen, @RequestParam String destino, Model model) {
 
         Double resultado = cambioMonedaService.cambiarMoneda(importe,origen,destino);
@@ -35,8 +33,8 @@ public class CambioMonedasController {
         return "resultado";
     }
 
-    @GetMapping("/resultado")
-    public String mostrarResultado(@RequestParam Double importe, @RequestParam String origen, @RequestParam String destino, Model model) {
+    @RequestMapping(value = "/resultado", method = RequestMethod.POST)
+    public String verCambioPost(@RequestParam Double importe, @RequestParam String origen, @RequestParam String destino, Model model) {
 
         Double resultado = cambioMonedaService.cambiarMoneda(importe,origen,destino);
         model.addAttribute("resultado", resultado);

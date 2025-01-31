@@ -11,6 +11,9 @@ public class CambioMonedaService {
         RestTemplate restTemplate = new RestTemplate();
         CambioData cambioData = restTemplate.getForObject(
                 "https://api.frankfurter.app/latest?from=" + origen + "&to=" + destino, CambioData.class);
+        if(cambioData == null){
+            return null;
+        }
         return cambioData.getRates().get(destino) * moneda;
     }
 }
